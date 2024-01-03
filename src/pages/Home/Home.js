@@ -5,7 +5,7 @@ import SongImage from "./SongImage";
 import Player from "./Player";
 import { useParams } from "react-router-dom";
 import { playlistServices } from "../../services/playlist-services/playlist-services";
-import * as signalR from "@microsoft/signalr";
+import * as signalR from "@microsoft/signalr"
 function HomePage() {
   const [playlist,setPlayList] =React.useState(null);
   const {playlistId}= useParams();
