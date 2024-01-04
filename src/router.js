@@ -7,6 +7,8 @@ import Header from "./layout/header/Header";
 import Signup from "./layout/loginform/Signup"
 import Purchase from "./pages/PurchaseScreen/Purchase"
 import UserInfo from "./pages/UserInfor/UserInfor";
+import CreateRoom from "./pages/CreateRoom/CreateRoom";
+import VideoStreamingComponent from "./pages/video-streaming/VideoStreaming";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
         element: <div></div>,
       },
       {
-        path:'playlist/:playlistId',
+        index:true,
         element: <HomePage />,
       },
       {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
       {
         path:'user',
         element: <UserInfo/>
+      },
+      {
+        path:'streaming',
+        element:<VideoStreamingComponent />
+      },
+      {
+        path:'create-room',
+        element:<CreateRoom />
       }
     ],
   },

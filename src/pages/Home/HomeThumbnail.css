@@ -1,0 +1,5 @@
+#home-thumbnail {
+    background-image: url('../../assests/thumbnail.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
