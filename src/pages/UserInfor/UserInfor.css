@@ -1,20 +1,38 @@
-.containerPurchase {
+.containerUser {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin:50px
-}
-
-.div-content-style{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin:50px;
     border: 2px solid #D9D9D9;
-    border-top: none;
-    width: 500px;
+    width: 600px;
 }
 
-.btn-purchase {
+.formUser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+margin-bottom: 2em;
+}
+
+.input-group label {
+margin-bottom: 0.5em;
+color: #1C0F1E;
+}
+
+.input-group input textarea {
+min-width: 400px;
+min-height: 40px;
+}
+
+
+
+.btn-user {
   align-items: center;
   background-clip: padding-box;
   background-color: transparent;
@@ -30,9 +48,9 @@
   font-weight: 600;
   justify-content: center;
   line-height: 1.25;
-  margin: 10px 0 10px 0;
+  margin: 10px 10px 10px 10px;
   min-height: 3rem;
-  min-width: 300px;
+  min-width: 250px;
   padding: calc(.875rem - 1px) calc(1.5rem - 1px);
   position: relative;
   text-decoration: none;
@@ -44,17 +62,17 @@
   width: auto;
 }
 
-.btn-purchase:hover,
-.btn-purchase:focus {
+.btn-user:hover,
+.btn-user:focus {
   background-color: #FE1E38;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 
-.btn-purchase:hover {
+.btn-user:hover {
   transform: translateY(-1px);
 }
 
-.btn-purchase:active {
+.btn-user:active {
   background-color: #c85000;
   box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
   transform: translateY(0);
