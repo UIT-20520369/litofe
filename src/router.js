@@ -6,6 +6,7 @@ import Login from "./layout/loginform/Login"
 import Header from "./layout/header/Header";
 import Signup from "./layout/loginform/Signup"
 import Purchase from "./pages/PurchaseScreen/Purchase"
+import UserInfo from "./pages/UserInfor/UserInfor";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         path: 'purchase',
         element: <Purchase/>
       },
+      {
+        path:'user',
+        element: <UserInfo/>
+      }
     ],
   },
 ]);
