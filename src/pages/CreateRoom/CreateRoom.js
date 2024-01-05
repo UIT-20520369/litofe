@@ -12,9 +12,47 @@ import {
 } from "@mui/material";
 import { Add, Cloud } from "@mui/icons-material";
 import ChooseMovieDialog from "./ChooseMovieDialog";
+import { styled } from "@mui/material/styles";
+import { storageServices } from "../../services/supabase-services/storage-services";
+import { movieServices } from "../../services/movie-services/movie-services";
 const movie1 = require("../../assests/movie1.jpg");
 function CreateRoom() {
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
   const [openSuccessDialog, setOpenSuccessDialog] = React.useState(false);
+  const [file, setFile] = React.useState();
+  const [movie, setMovie] = React.useState({
+    name: "",
+    source: "",
+    description: "",
+  });
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+  const addMovieQuery = movieServices.useAdd();
+  const handleSubmit = () => {
+    storageServices.uploadFile(file, "lito", "movies").then((data) => {
+      if (data.length > 0) {
+        setMovie({ ...movie, source: data });
+      }
+    });
+    addMovieQuery.mutate(movie);
+    setMovie({
+      name: "",
+      source: "",
+      description: "",
+    });
+    setFile(null);
+  };
   return (
     <Stack
       sx={{
@@ -42,7 +80,13 @@ function CreateRoom() {
           <Stack spacing={3} sx={{ width: "45%" }}>
             <Stack spacing={2}>
               <h3>Room name</h3>
-              <TextField id="filled-basic" label="Filled" variant="filled" />
+              <TextField
+                id="filled-basic"
+                label="Filled"
+                variant="filled"
+                value={movie.name}
+                onChange={(e) => setMovie({ ...movie, name: e.target.value })}
+              />
             </Stack>
             <Stack spacing={2}>
               <h3>Room description</h3>
@@ -53,19 +97,46 @@ function CreateRoom() {
                 rows={4}
                 defaultValue="Default Value"
                 variant="filled"
+                value={movie.description}
+                onChange={(e) =>
+                  setMovie({ ...movie, description: e.target.value })
+                }
               />
             </Stack>
           </Stack>
           <Stack spacing={3}>
             <Stack direction={"row"} spacing={4} sx={{ alignItems: "center" }}>
-              <Button startIcon={<Cloud />} variant="contained">
+              <Button
+                component="label"
+                startIcon={<Cloud />}
+                variant="contained"
+              >
                 Upload Video
+                <VisuallyHiddenInput
+                  type="file"
+                  accept="video/*"
+                  multiple
+                  onChange={(e) => {
+                    handleFileChange(e);
+                  }}
+                />
               </Button>
-              <Button startIcon={<Add />} variant="contained" onClick={()=>{setOpenSuccessDialog(true)}}>
+              <Button
+                startIcon={<Add />}
+                variant="contained"
+                onClick={() => {
+                  setOpenSuccessDialog(true);
+                }}
+              >
                 Choose Video
               </Button>
             </Stack>
-            <img src={movie1} style={{ height: "300px", aspectRatio: 2 }}></img>
+            {file != null && (
+              <video
+                src={URL.createObjectURL(file)}
+                style={{ height: "300px", aspectRatio: 2 }}
+              ></video>
+            )}
           </Stack>
         </Stack>
         <Stack
@@ -78,7 +149,7 @@ function CreateRoom() {
           }}
           spacing={4}
         >
-          <Button variant="contained"> Start Streaming</Button>
+          <Button variant="contained" onClick={()=>{handleSubmit()}}> Start Streaming</Button>
           <Button variant="outlined"> Cancel </Button>
         </Stack>
       </Box>

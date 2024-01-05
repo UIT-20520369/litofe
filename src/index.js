@@ -9,12 +9,16 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { router } from "./router";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <CreateTheme>
     <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router}>
       </RouterProvider>
+      </QueryClientProvider>
     </React.StrictMode>
   </CreateTheme>
 );

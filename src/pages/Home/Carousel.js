@@ -6,7 +6,7 @@ import ScrollCarousel from "scroll-carousel-react";
 const carousel1 = require("../../assests/carousel1.png");
 function Carousel() {
   return (
-    <div style={{ width: "100%" }} class="my-carousel">
+    <div style={{ width: "100%" }} className="my-carousel">
       <ScrollCarousel
         autoplay
         autoplaySpeed={8}

@@ -1,6 +1,6 @@
 .container{
     background-color: #1C0F1E;
-    width: 600px;
+    width: 40%;
 }
 .login-form {
     display: flex;
@@ -27,7 +27,7 @@ min-height: 40px;
 
 .signup-link {
 align-items: right;
-color: #EC864D;
+color: #F63D64;
 }
 
 
