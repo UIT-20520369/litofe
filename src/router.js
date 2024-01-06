@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         element: <UserInfo/>
       },
       {
-        path:'streaming',
+        path:'streaming/:roomId',
         element:<VideoStreamingComponent />
       },
       {

@@ -15,8 +15,9 @@ import ChooseMovieDialog from "./ChooseMovieDialog";
 import { styled } from "@mui/material/styles";
 import { storageServices } from "../../services/supabase-services/storage-services";
 import { movieServices } from "../../services/movie-services/movie-services";
-const movie1 = require("../../assests/movie1.jpg");
+import { roomServices } from "../../services/room-services/room-services";
 function CreateRoom() {
+  const user = JSON.parse(localStorage.getItem("user"));
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -35,23 +36,27 @@ function CreateRoom() {
     source: "",
     description: "",
   });
+  const [room, setRoom] = React.useState({
+    name: "",
+    userId: user.id,
+    movieId: 0,
+    description: "",
+    isDeleted: false,
+  });
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    setMovie({...movie,name:e.target.files[0].name})
   };
   const addMovieQuery = movieServices.useAdd();
-  const handleSubmit = () => {
-    storageServices.uploadFile(file, "lito", "movies").then((data) => {
+  const addRoomQuery = roomServices.useAddRoom();
+  const handleSubmit = async () => {
+    storageServices.uploadFile(file, "lito", "movies").then(async (data) => {
       if (data.length > 0) {
-        setMovie({ ...movie, source: data });
+        const newMovie = await addMovieQuery.mutateAsync({...movie,source:data});
+        addRoomQuery.mutate({ ...room, movieId: newMovie.id });
+        setFile(null);
       }
     });
-    addMovieQuery.mutate(movie);
-    setMovie({
-      name: "",
-      source: "",
-      description: "",
-    });
-    setFile(null);
   };
   return (
     <Stack
@@ -84,8 +89,8 @@ function CreateRoom() {
                 id="filled-basic"
                 label="Filled"
                 variant="filled"
-                value={movie.name}
-                onChange={(e) => setMovie({ ...movie, name: e.target.value })}
+                value={room.name}
+                onChange={(e) => setRoom({ ...room, name: e.target.value })}
               />
             </Stack>
             <Stack spacing={2}>
@@ -149,7 +154,15 @@ function CreateRoom() {
           }}
           spacing={4}
         >
-          <Button variant="contained" onClick={()=>{handleSubmit()}}> Start Streaming</Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            {" "}
+            Start Streaming
+          </Button>
           <Button variant="outlined"> Cancel </Button>
         </Stack>
       </Box>

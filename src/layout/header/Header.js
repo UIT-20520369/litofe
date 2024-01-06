@@ -42,14 +42,12 @@ function Header() {
           spacing={12}
           sx={{ alignItems: "center", marginLeft: "3%" }}
         >
-          <Stack direction={"row"} spacing={2} sx={{ alignItems: "center" }}>
+          <Stack direction={"row"} spacing={2} sx={{ alignItems: "center" }} onClick={()=>{navigate("/")}}>
             <img src={logo} style={{ height: "75px", width: "90px" }}></img>
             <div>
               <h1>CinesLink</h1>
             </div>
           </Stack>
-          <Typography>Start streaming</Typography>
-          <Typography>Watching</Typography>
           {user != null && user?.username && (
             <Stack
               direction={"row"}

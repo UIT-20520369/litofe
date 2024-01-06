@@ -8,7 +8,7 @@ async function uploadFile(file,bucket,folder) {
       // Handle success
     }
     const url = await supabase.storage
-    .from('Booking')
+    .from(bucket)
     .getPublicUrl(`${folder}/${file.name}${date}`);
   return url.data.publicUrl;
   }

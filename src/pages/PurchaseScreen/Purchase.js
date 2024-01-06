@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button } from '@mui/material';
+import { Payment } from '@mui/icons-material';
 import "./Purchase.css"
 
 const Purchase = () => {
@@ -31,10 +33,7 @@ const Purchase = () => {
                 </div>
                 <h3 style={{marginBottom:"0.3em"}}>Payment summary</h3>
                 <p style={{marginTop:"0.3em", fontWeight:"lighter"}}>{formData.price} x 12 months ₫989,000</p>
-                <button type="submit" className='btn-purchase' >
-                    Check out with 
-                    <img href="./src/image/icon24px/paypal.png" alt='paypal pic'/>
-                </button>
+                <Button variant='outlined' startIcon={<Payment />}>Check out now</Button>
                 <h3>INCLUDED IN PERSONAL</h3>
                 <ul style={{listStyleType:"none"}}>
                     <li>✓ Unlimited streaming video</li>

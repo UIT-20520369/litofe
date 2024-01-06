@@ -19,10 +19,24 @@ const useAdd = ()=>{
     const mutation = useMutation({
       mutationFn:(movie) =>Create(movie),
       onSuccess:(data)=>{
-        navigate("/streaming");
       }
     });
     return mutation
   }
-
-  export const movieServices={useAdd}
+  const getAll = async () => {
+    const MainApiUrl = `${apiUrl}/all`;
+    const data = await fetch(MainApiUrl)
+      .then((response) => response.json())
+      .then((json) => json);
+    return data;
+  };
+  const useAllMovies = () => {
+    const properties = useQuery({
+      queryKey: ["AllMovies"],
+      queryFn: () => {
+        return getAll();
+      },
+    });
+    return properties;
+  };
+  export const movieServices={useAdd,useAllMovies}

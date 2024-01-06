@@ -3,23 +3,28 @@ import { Box, Stack, Typography, Button } from "@mui/material";
 import "./HomeThumbnail.css";
 import { PlayCircleFilledOutlined } from "@mui/icons-material";
 import ScrollCarousel from "scroll-carousel-react";
-const carousel1 = require("../../assests/carousel1.png");
-function Carousel() {
+import { useNavigate } from "react-router-dom";
+function Carousel({ rooms }) {
+  const navigate = useNavigate();
   return (
     <div style={{ width: "100%" }} className="my-carousel">
       <ScrollCarousel
         autoplay
-        autoplaySpeed={8}
+        autoplaySpeed={2}
         speed={7}
         onReady={() => console.log("I am ready")}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item) => (
-          <div key={item}>
-            <img
-              src={carousel1}
-              style={{ height: "180px", aspectRatio: 2 }}
-            ></img>
-          </div>
+        {rooms.map((item) => (
+          <Stack key={item} sx={{alignItems:'center'}}>
+            <video
+              preload="metadata"
+              width={'240px'}
+              height={'180px'}
+              src={item.movie.source}
+              onClick={()=>{navigate("/streaming/"+item.id)}}
+            ></video>
+            <h3>{item.name}</h3>
+          </Stack>
         ))}
       </ScrollCarousel>
     </div>

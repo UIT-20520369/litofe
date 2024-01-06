@@ -1,17 +1,18 @@
 import * as React from "react";
 import { Box, Stack, Typography, Button } from "@mui/material";
 import "./HomeThumbnail.css";
-import { PlayCircleFilledOutlined } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 function HomeThumnail() {
+  const navigate = useNavigate();
   return (
     <div style={{ width: "100%" }}>
-      <Stack sx={{bgcolor:'#E6E6E6',width: "100%",height:"500px", alignItems:'center', justifyContent:'center'}} spacing={2}>
+      <Stack id="home-thumbnail" sx={{bgcolor:'#E6E6E6',width: "100%",height:"500px", alignItems:'center', justifyContent:'center'}} spacing={2}>
         <h1>Live streaming solutions you can count on</h1>
         <Typography>We make it easy to livestream engaging virtual events, connect and share your </Typography>
         <Typography>moments with your friends and fans.</Typography>
         <Stack direction={'row'} spacing={2}>
-            <Button variant="contained"> See plans</Button>
-            <Button variant="contained">Join for free</Button>
+            <Button variant="contained" onClick={()=>{navigate("/purchase")}}> See plans</Button>
+            <Button variant="contained" onClick={()=>{ navigate("/create-room")}}>Start streaming</Button>
         </Stack>
     </Stack>
       {/* <Box id="home-thumbnail" sx={{ width: "100%", height: "600px" }}>
